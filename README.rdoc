@@ -26,3 +26,10 @@ Things you may want to cover:
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+
+==================change database character sets===========================================
+ALTER DATABASE DEFAULT CHARACTER SET utf8 the name of the database COLLATE utf8_general_ci
+
+//The two each data table to perform a. 
+ALTER TABLE DEFAULT CHARACTER SET utf8 table name;
+ALTER TABLE name CONVERT TO CHARACTER SET name utf8;

@@ -5,11 +5,11 @@ class UsersController < ApplicationController
      username=params[:username]
      passwd=Digest::MD5.hexdigest(params[:passwd])
      str = {"fail" => "username or password wrong"}
-     user= User.where("username"=> username,"passwd"=>passwd).first
+     user= User.where("(username = '"+username+"' or email = '"+username+"') and passwd = '"+passwd+"'").first
      if (user!=nil)
         uuid=SecureRandom.hex
         Rails.cache.write(uuid,user.id)
-        str={"session_id"=>uuid,"success"=>200}
+        str={"session_id"=>uuid,"user_id"=>user.id ,"success"=>200}
      end
      render :json => str
    end
