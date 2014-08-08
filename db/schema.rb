@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140625075849) do
+ActiveRecord::Schema.define(version: 20140808082858) do
 
   create_table "diaries", force: true do |t|
     t.integer  "user_id"
@@ -24,11 +24,13 @@ ActiveRecord::Schema.define(version: 20140625075849) do
 
   create_table "templates", force: true do |t|
     t.integer  "user_id"
-    t.string   "format"
+    t.text     "format"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "user_created_at"
     t.datetime "user_updated_at"
+    t.string   "name"
+    t.decimal  "selected",        precision: 10, scale: 0
   end
 
   create_table "users", force: true do |t|

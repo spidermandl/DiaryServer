@@ -32,7 +32,7 @@ class DiarysController < ApplicationController
            #today=Diary.where("created_at > '"+Time.now.strftime("%Y%m%d")+"' and user_id = "+@user.id.to_s).first
            today=Diary.where("user_created_at = '"+c_time+"' and user_id = "+@user.id.to_s).first
            if (today==nil)
-              today= Diary.create(user_id: @user.id,content: con,user_created_at: DateTime.parse(c_time), user_updated_at: DateTime.parse(c_time)) 
+              today= Diary.create(user_id: @user.id,content: con,user_created_at: DateTime.parse(c_time), user_updated_at: DateTime.parse(u_time)) 
            else
               today.update(content: con, user_updated_at: DateTime.parse(u_time))
            end

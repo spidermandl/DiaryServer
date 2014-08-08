@@ -1,6 +1,9 @@
 #encoding = utf-8
 class UsersController < ApplicationController
-   @@user_session={}
+   @@user_session={} #存放所有用户session
+   @@update_url = "http://114.215.120.47:3000/diary.apk" #新android apk下载地址
+   @@android_version="1.0.1"#android apk版本号
+   
    def login 
      username=params[:username]
      passwd=Digest::MD5.hexdigest(params[:passwd])
@@ -9,7 +12,9 @@ class UsersController < ApplicationController
      if (user!=nil)
         uuid=SecureRandom.hex
         Rails.cache.write(uuid,user.id)
-        str={"session_id"=>uuid,"user_id"=>user.id ,"success"=>200}
+        str={"session_id"=>uuid,"user_id"=>user.id, 
+             "user_name"=> user.username,"user_email"=>user.email,
+             "nickname"=> user.nickname,"success"=>200}
      end
      render :json => str
    end
@@ -30,4 +35,18 @@ class UsersController < ApplicationController
       end
       render :json => response
    end
+   
+   #版本检查 
+   def check_version
+       old_version=params[:version]
+       response={"version" => @@android_version}
+       puts old_version
+       puts @@android_version
+       if (old_version!=@@android_version)
+          response={"url" => @@update_url}
+       end
+       render :json => response
+   end
+
+
 end
